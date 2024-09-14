@@ -1,0 +1,10 @@
+
+.navbar-link {
+    transition: color 0.5s ease; 
+  }
+  
+
+  .navbar-link:hover {
+    color: black;
+  }
+  
