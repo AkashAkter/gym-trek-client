@@ -1,113 +1,144 @@
-import { useState } from "react";
-import { FaShoppingCart } from "react-icons/fa";
-import { MdMenu } from "react-icons/md";
-import ResponsiveMenu from "./ResponsiveMenu";
-import { Link } from "react-router-dom";
-import "../../styles/style.css";
+import { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { useAppSelector } from "../../redux/hooks";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from "../../components/ui/navigation-menu";
+import { LucideShoppingCart, Menu, X } from "lucide-react";
+
+const navLinks = [
+  {
+    lebel: "Home",
+    href: "/",
+  },
+  {
+    lebel: "Product",
+    href: "/product",
+  },
+  {
+    lebel: "Product Manage",
+    href: "/manage-product",
+  },
+  {
+    lebel: "About Us",
+    href: "/aboutus",
+  },
+];
 
 const Navbar = () => {
-  const NavbarMenu = [
-    {
-      id: 1,
-      title: "Home",
-      link: "/",
-    },
-    {
-      id: 2,
-      title: "Product",
-      link: "/product",
-    },
-    {
-      id: 3,
-      title: "Product Management",
-      link: "/manage-product",
-    },
-    {
-      id: 4,
-      title: "About Us",
-      link: "/aboutus",
-    },
-  ];
+  const [showSidebar, setShowSidebar] = useState(false);
+  const { items, total } = useAppSelector((state) => state.cart);
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      // event target
+      const target = event.target as HTMLElement;
+      // screen width
+      const screen = window.screen.width;
 
-  const [open, setOpen] = useState(false);
+      // ---**** return if the screen width is larger
+      if (screen > 1024) {
+        return;
+      }
 
+      // return if the user click on the drawer or the navbar
+      if (target.closest(".myDrawer") || target.closest(".menuBTn")) {
+        return;
+      }
+
+      setShowSidebar(false);
+    };
+
+    // hide sidebar on clicking outside
+    if (showSidebar) {
+      document.body.addEventListener("mousedown", handleOutsideClick);
+    } else {
+      document.body.removeEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => {
+      document.body.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [showSidebar, setShowSidebar]);
   return (
-    <>
-      <div className=" max-w-screen-xl mx-auto hidden md:block py-8">
-        <div className="flex justify-between">
-          <Link to={"/"}>
-            <h1
-              className="hidden md:block font-extrabold text-3xl"
-              style={{ fontFamily: "Playwrite CU, cursive" }}
-            >
-              <span className="text-primary">Gym</span>Trek
+    <div className="mx-auto container ">
+      <div className="flex  items-center justify-between py-3 ">
+        <Link to="/" className="flex items-center">
+          <h1 className="font-bold text-3xl ">
+            Gym<span className="text-primaryMat">Trek</span>
+          </h1>
+        </Link>
+        <div className="center w-fit gap-[15px]">
+          <NavigationMenu className="hidden md:flex">
+            <NavigationMenuList>
+              <div className="flex justify-end">
+                <NavigationMenuItem>
+                  {navLinks.map(({ href, lebel }, i) => (
+                    <Link to={href} key={i + "navlink"}>
+                      <NavigationMenuLink
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        {lebel}
+                      </NavigationMenuLink>
+                    </Link>
+                  ))}
+                </NavigationMenuItem>
+              </div>
+            </NavigationMenuList>
+          </NavigationMenu>
+          <div className="center gap-[10px]">
+            <Link to={"/cart"} className=" relative">
+              <LucideShoppingCart />
+              <span className="absolute text-[12px] top-[-14px] right-[-10px] text-white bg-primaryMat shadow-md px-[5px] py-[3px] rounded-[8px]">
+                {items.length}
+              </span>
+            </Link>
+            {/* <span className="font-[600] text-primaryMat">
+              ${total.toFixed(2)}
+            </span> */}
+          </div>{" "}
+          <button
+            onClick={() => setShowSidebar(!showSidebar)}
+            className="md:hidden flex menuBTn"
+          >
+            {showSidebar ? <X /> : <Menu />}
+          </button>
+        </div>
+
+        {/* sidebar */}
+        <div
+          className={`${
+            showSidebar
+              ? "w-[300px] border-r-[1px] px-[20px] pt-[20px]"
+              : "w-[0px]"
+          } bg-white left-0 top-0 fixed h-screen border-borderColor z-20 overflow-hidden myDrawer`}
+          style={{ transition: "0.3s" }}
+        >
+          <Link to="/" className="flex items-center">
+            <h1 className="font-bold text-3xl ">
+              Gym<span className="text-primaryMat">Trek</span>
             </h1>
           </Link>
-          <div
-            className="flex gap-20 font1"
-            style={{ fontFamily: "Bebas Neue, sans-serif" }}
-          >
-            <div>
-              <p>Mail Us</p>
-              <p className="hover:text-primary">admin@gmail.com</p>
-            </div>
-            <div>
-              <p>Call To</p>
-              <p className="hover:text-primary">111 222 333</p>
-            </div>
+          <div className="w-full flex flex-col mt-[20px]">
+            {navLinks.map(({ href, lebel }) => (
+              <NavLink
+                to={href}
+                className={({ isActive }) =>
+                  `${
+                    isActive ? "bg-primaryMat text-white" : "text-primaryTxt"
+                  }  w-full px-[15px] py-[8px] rounded-[5px]`
+                }
+              >
+                {lebel}
+              </NavLink>
+            ))}
           </div>
         </div>
       </div>
-      <nav className="md:bg-primary text-sm uppercase">
-        <div className="container flex justify-between items-center py-3 max-w-screen-xl mx-auto">
-          {/* Logo Section */}
-          <div className="text-2xl flex items-center gap-2 font-bold uppercase lg:hidden md:hidden">
-            <Link to={"/"}>
-              <p>
-                Gym
-                <span className="text-secondary">Trek</span>
-              </p>
-            </Link>
-          </div>
-
-          {/* Menu Section */}
-          <div className="hidden md:block">
-            <ul className="flex items-center gap-6 md:text-white">
-              {NavbarMenu?.map((item) => {
-                return (
-                  <li key={item.id}>
-                    <Link
-                      className="inline-block py-1 px-3 hover:text-black font-semibold navbar-link"
-                      to={item.link}
-                    >
-                      {item.title}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-
-          {/* Icons Section */}
-          <div className="flex items-center justify-end">
-            <div className="md:hidden" onClick={() => setOpen(!open)}>
-              <MdMenu className="text-4xl" />
-            </div>
-            <button className="text-2xl hover:bg-primary hover:text-black text-white rounded-full p-2">
-              <Link to={"/cart"}>
-                <FaShoppingCart />
-              </Link>
-            </button>
-          </div>
-
-          {/* Mobile Menu Section */}
-        </div>
-      </nav>
-
-      {/* Mobile Sidebar Section  */}
-      <ResponsiveMenu open={open} />
-    </>
+    </div>
   );
 };
-
 export default Navbar;

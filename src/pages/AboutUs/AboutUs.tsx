@@ -1,7 +1,6 @@
-import React from "react";
+import AboutUsView from "../../view/AboutUsView";
 
 const AboutUs = () => {
-  return <div>AboutUs</div>;
+  return <AboutUsView />;
 };
-
 export default AboutUs;

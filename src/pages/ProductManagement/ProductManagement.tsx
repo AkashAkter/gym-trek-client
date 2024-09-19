@@ -1,7 +1,7 @@
-import React from "react";
+import ProductManageMentView from "../../view/ProductManagementView";
 
-const ProductManagement = () => {
-  return <div>ProductManagement</div>;
+const ProductManageMent = () => {
+  return <ProductManageMentView />;
 };
 
-export default ProductManagement;
+export default ProductManageMent;

@@ -1,50 +1,80 @@
-# React + TypeScript + Vite
+# Gym Trek
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Introduction
 
-Currently, two official plugins are available:
+Gym Trek's application empowers users to manage products effortlessly. You can create, edit, and remove products, as well as filter them by category. The app also allows you to set minimum and maximum price limits and search for products by title. Users can add items to their cart and proceed directly to checkout from there.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This README will walk you through the process of setting up and running the project on your local machine.
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Api debouncing for the search functionality to reduce the number of API calls
+- Cart management system
+- Reload alert
+- Stripe
 
-- Configure the top-level `parserOptions` property like this:
+## Technology Stack
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- React
+- Redux Toolkit
+- TypeScript
+- Vite
+- Tailwind CSS
+- Radix UI
+- Formik
+- Stripe
+
+## Getting Started
+
+To begin working on the project, adhere to the guidelines listed below.
+
+### Prerequisites
+
+Verify that the following programs are installed on your computer:
+
+- Git
+- Node.js (v20.9.0 recommended)
+- npm or any package installer
+
+### Cloning the Repository
+
+First, clone the repository using the following command:
+
+```
+git clone https://github.com/AkashAkter/gym-trek-client.git
+
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Installing Dependencies
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Open the project file in terminal and run `npm install`
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```
+npm install
+
+```
+
+### Setting Up Environment Variables
+
+Create a .env file in the root directory of the project and add your MongoDB credentials:
+
+```
+VITE_IMGBB_KEY=imgbb api key
+VITE_BASE_API=
+VITE_STRIPE_PUBLISHABLE_KEY=your Stripe Publish key
+```
+
+### Running the Project
+
+Once you have set up the environment variables, you can run the project locally.
+
+```
+npm run dev
+
+```
+
+### Accessing the Project
+
+```
+http://localhost:5173
 ```

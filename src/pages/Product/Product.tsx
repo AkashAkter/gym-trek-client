@@ -1,7 +1,12 @@
-import React from "react";
+import { useEffect } from "react";
+import ProductsView from "../../view/ProductsView";
 
 const Product = () => {
-  return <div>Product</div>;
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
+
+  return <ProductsView />;
 };
 
 export default Product;
