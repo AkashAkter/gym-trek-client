@@ -17,7 +17,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../components/ui/select";
-import ListOrderedIcon from "../icons/ListOrderedIcon";
 import { categories } from "../mock/categories";
 import { useGetAllProductQuery } from "../redux/features/product/product.api";
 import { IProduct } from "../types";

@@ -31,7 +31,7 @@ const navLinks = [
 
 const Navbar = () => {
   const [showSidebar, setShowSidebar] = useState(false);
-  const { items, total } = useAppSelector((state) => state.cart);
+  const { items } = useAppSelector((state) => state.cart);
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       // event target

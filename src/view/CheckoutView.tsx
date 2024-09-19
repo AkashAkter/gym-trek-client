@@ -11,7 +11,6 @@ import { Label } from "../components/ui/label";
 import { RadioGroup, RadioGroupItem } from "../components/ui/radio-group";
 import { Separator } from "../components/ui/separator";
 import { Textarea } from "../components/ui/textarea";
-import ShoppingCartIcon from "../icons/ShoppingCartIcon";
 import { clearCart } from "../redux/features/cart/cart.slice";
 import { useOrderManyProductMutation } from "../redux/features/product/product.api";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";

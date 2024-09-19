@@ -1,4 +1,3 @@
-import { IconType } from "react-icons/lib";
 
 export interface ICategory {
   label: string;
