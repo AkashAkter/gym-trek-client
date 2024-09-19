@@ -27,6 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           className="w-full h-full object-cover zoom-on-hover"
           src={product.image}
           alt={product.title}
+          style={{ objectFit: "cover" }}
         />
         {stock ? <ProductTooltip product={product} /> : ""}
       </div>

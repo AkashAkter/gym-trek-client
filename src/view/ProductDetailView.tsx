@@ -41,7 +41,7 @@ const ProductDetailView = () => {
           <img
             src={data?.data?.image}
             alt="Product Image"
-            className="w-full h-[300px] object-cover border rounded-lg overflow-hidden"
+            className="w-full h-full object-cover border rounded-lg overflow-hidden"
           />
         </div>
         <div className="grid gap-6">
